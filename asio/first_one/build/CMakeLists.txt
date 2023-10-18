@@ -1,0 +1,8 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.12)
+PROJECT(first_one VERSION 0.0.1)
+SET(CPP_STANDARD 20)
+SET(CPP_STANDARD_REQUIRED True)
+ADD_EXECUTABLE(build ../src/simple_example.cpp)
+TARGET_LINK_LIBRARIES(build asio)
+add_library(asio INTERFACE)
+target_include_directories(asio INTERFACE /usr/include/asio)
