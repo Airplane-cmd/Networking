@@ -28,7 +28,7 @@ int main()
 	asio::io_context context;
 	asio::io_context::work idleWork(context);
 	std::thread context_thrd([&](){context.run();});
-	asio::ip::tcp::endpoint endpoint(asio::ip::make_address("151.101.65.140"/*"51.38.81.49"*/, errCode), 80);//"93.184.216.34"
+	asio::ip::tcp::endpoint endpoint(asio::ip::make_address("51.38.81.49", errCode), 80);//"93.184.216.34"
 	asio::ip::tcp::socket socket(context);
 	socket.connect(endpoint, errCode);
 	if(!errCode)	std::cout << "[+] Connected;\n";
