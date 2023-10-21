@@ -26,8 +26,8 @@ namespace web
 				{
 					m_connection = std::make_unique<connection<T>>();
 					asio::ip::tcp::resolver resolver(m_context);
-					m_endpoints resolver.resolve(host, std::to_string(port));
-					m_connection->ConnectToServer(m_endpoints);
+					asio::ip::tcp::endpoint endpoint = resolver.resolve(host, std::to_string(port));
+					m_connection->ConnectToServer(m_endpoint);
 					thrContext = std::thread([this](){m_context.run();});
 				}
 				catch(std::exception &e)
