@@ -24,10 +24,17 @@ namespace web
 			{
 				try
 				{
-					m_connection = std::make_unique<connection<T>>();
+
 					asio::ip::tcp::resolver resolver(m_context);
-					asio::ip::tcp::endpoint endpoint = resolver.resolve(host, std::to_string(port));
-					m_connection->ConnectToServer(m_endpoint);
+					asio::ip::tcp::result_type endpoints = resolver.resolve(host, std::to_string(port));
+
+					m_connection = std::make_unique<connection<T>>(
+							connection<T>::Owner::client,
+							m_context,
+							asio::ip::tcp::socket(m_context),
+							m_messangesIn_q);
+
+					m_connection->ConnectToServer(endpoints);
 					thrContext = std::thread([this](){m_context.run();});
 				}
 				catch(std::exception &e)
@@ -50,7 +57,7 @@ namespace web
 			}
 			Tsqueue<owned_message<T>>& IncomingQueue()
 			{
-				return m_qMessagesIn;
+				return m_messagesIn_q;
 			}
 
     protected:
@@ -59,7 +66,7 @@ namespace web
 			asio::ip::tcp::socket m_socket;
 			std::unique_ptr<connection<T>> m_connection;
     private:
-			Tsqueue<owned_message<T>> m_qMessagesIn;
+			Tsqueue<owned_message<T>> m_messagesIn_q;
     };
   }
 }
