@@ -1,0 +1,10 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.12)
+PROJECT(messager_client VERSION 0.0.1)
+SET(CPP_STANDARD 20)
+SET(CPP_STANDARD_REQUIRED True)
+ADD_EXECUTABLE(client_build ../src/simple_example.cpp)
+TARGET_LINK_LIBRARIES(client_build asio)
+add_library(asio INTERFACE)
+target_include_directories(asio INTERFACE /usr/include/asio)
+target_include_directories(client_build PUBLIC /home/bthd/WS/Networking/asio/web_framework/src)
+

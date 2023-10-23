@@ -26,13 +26,13 @@ namespace web
 				{
 
 					asio::ip::tcp::resolver resolver(m_context);
-					asio::ip::tcp::result_type endpoints = resolver.resolve(host, std::to_string(port));
+					asio::ip::tcp::resolver::results_type endpoints = resolver.resolve(host, std::to_string(port));
 
 					m_connection = std::make_unique<connection<T>>(
 							connection<T>::Owner::client,
 							m_context,
 							asio::ip::tcp::socket(m_context),
-							m_messangesIn_q);
+							m_messagesIn_q);
 
 					m_connection->ConnectToServer(endpoints);
 					thrContext = std::thread([this](){m_context.run();});
@@ -42,22 +42,30 @@ namespace web
 					std::cerr << "[!] Client Exception : " << e.what() << '\n';
 					return 0;
 				}
+				return 1;
 			}
-			bool Disconnect()
+			void Disconnect()
 			{
-				if(IsConnected())	m_connection->Disconnect();
+				if(this->IsConnected())	m_connection->Disconnect();
 				m_context.stop();
 				if(thrContext.joinable())	thrContext.join();
 				m_connection.release();
 			}
-			bool IsCconnected()
+			bool IsConnected()
 			{
 				if(m_connection)	return m_connection->IsConnected();
 				else	return false;
 			}
-			Tsqueue<owned_message<T>>& IncomingQueue()
+			Tsqueue<owned_message<T>>& Incoming()
 			{
 				return m_messagesIn_q;
+			}
+			void Send(const message<T> &msg)
+			{
+				if(this->IsConnected())
+				{
+					m_connection->Send(msg);
+				}
 			}
 
     protected:

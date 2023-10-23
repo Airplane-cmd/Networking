@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <chrono>
 #include <cstdint>
+#include <queue>
 #define ASIO_STANDALONE
 #include <asio.hpp>
 #include <asio/ts/buffer.hpp>
