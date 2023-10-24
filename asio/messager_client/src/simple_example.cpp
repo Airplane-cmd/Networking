@@ -41,7 +41,7 @@ public:
 int main()
 {
 	CustomClient c;
-	std::thread inputHandling(&CustomClient::getInput, &c);
+//	std::thread inputHandling(&CustomClient::getInput, &c);
 	c.Connect("192.168.36.14", 40000);
 	for(;;)
 	{
@@ -79,6 +79,6 @@ int main()
 		else std::cout << "{!} Server Down\n";
 	}
 
-	inputHandling.join();
+//	inputHandling.join();
 	return 0;
 }
