@@ -27,7 +27,7 @@ protected:
 	virtual void OnMessage(std::shared_ptr<web::net::connection<CustomMsgTypes>> client, web::net::message<CustomMsgTypes> &msg)
 	{
 		switch(msg.header.id)
-		{
+		{		
 			case CustomMsgTypes::ServerPing:
 			{
 				std::cout << '[' << client->GetID() << "]: Server Ping;\n";
@@ -48,7 +48,7 @@ protected:
 };
 int main()
 {
-	CustomServer server(60000);
+	CustomServer server(40000);
 	server.Start();
 	for(;;)
 	{
