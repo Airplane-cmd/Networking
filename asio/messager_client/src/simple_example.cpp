@@ -14,6 +14,7 @@ public:
 	void PingServer()
 	{
 		web::net::message<CustomMsgTypes> msg;
+		msg.header.id = CustomMsgTypes::ServerPing;
 		std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
 		msg << timeNow;
 		Send(msg);
@@ -22,18 +23,19 @@ public:
 	{
 		web::net::message<CustomMsgTypes> msg;
 		msg.header.id = CustomMsgTypes::MessageAll;
-		this->Send(msg);
+		Send(msg);
 	}
 	void getInput()
 	{ 
 		for(;;)
 		{
-				CustomMsgTypes type;
-				std::string command;
-				std::cin >> command;
-				if(command == "PING")							this->PingServer();
-				else if(command == "MESSAGEALL")	this->MessageAll();
-				else std::cout << "[!] Not implemented;\n";
+			CustomMsgTypes type;
+			std::string command;
+			std::cin >> command;
+			if(command == "PING")							this->PingServer();
+			else if(command == "MESSAGEALL")	this->MessageAll();
+			else std::cout << "[!] Not implemented;\n";
+//				this->PingServer();
 		}
 	}
 };
@@ -42,9 +44,11 @@ int main()
 {
 	CustomClient c;
 //	std::thread inputHandling(&CustomClient::getInput, &c);
-	c.Connect("192.168.36.14", 40000);
+	c.Connect("192.168.0.113", 40000);
+	
 	for(;;)
 	{
+		c.PingServer();
 		if(c.IsConnected())
 		{
 			if(!c.Incoming().empty())
