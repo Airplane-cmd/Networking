@@ -6,5 +6,5 @@ ADD_EXECUTABLE(client_build ../src/simple_example.cpp)
 TARGET_LINK_LIBRARIES(client_build asio)
 add_library(asio INTERFACE)
 target_include_directories(asio INTERFACE /usr/include/asio)
-target_include_directories(client_build PUBLIC /home/bthd/WS/Networking/asio/web_framework/src)
+target_include_directories(client_build PUBLIC ../../web_framework/src)
 
