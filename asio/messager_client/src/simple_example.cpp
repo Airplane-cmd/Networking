@@ -42,7 +42,7 @@ int main()
 {
 	CustomClient c;
 	std::thread inputHandling(&CustomClient::getInput, &c);
-	c.Connect("192.168.0.113", 60000);
+	c.Connect("192.168.36.14", 40000);
 	for(;;)
 	{
 		if(c.IsConnected())
