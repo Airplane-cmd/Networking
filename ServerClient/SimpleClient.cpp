@@ -107,7 +107,7 @@ public:
 int main()
 {
 	CustomClient c;
-	c.Connect("192.168.36.14", 60000);
+	c.Connect("192.168.36.14", 40000);
 	std::thread thr(&CustomClient::getInput, &c);
 
 	bool bQuit = false;
