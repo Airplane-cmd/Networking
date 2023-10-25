@@ -1,0 +1,4 @@
+/home/bthd/WS/Javidx9/PixelGameEngine/BiggerProjects/Networking/Parts1&2/CMakeFiles/client.dir
+/home/bthd/WS/Javidx9/PixelGameEngine/BiggerProjects/Networking/Parts1&2/CMakeFiles/server.dir
+/home/bthd/WS/Javidx9/PixelGameEngine/BiggerProjects/Networking/Parts1&2/CMakeFiles/edit_cache.dir
+/home/bthd/WS/Javidx9/PixelGameEngine/BiggerProjects/Networking/Parts1&2/CMakeFiles/rebuild_cache.dir
